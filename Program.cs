@@ -19,15 +19,4 @@ namespace Calculatrice
             Application.Run(new BaseForm());
         }
     }
-
-    public class CalculsDec
-    {
-        public double valueDec;
-        public string sommeDec(double val1 , double val2)
-        {
-            double somme = val1 + val2;
-            string resultat = somme.ToString();
-            return resultat;
-        }
-    }
 }

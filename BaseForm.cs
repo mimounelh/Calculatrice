@@ -23,8 +23,6 @@ namespace Calculatrice
             
         }
 
-        Calculatrice.CalculsDec calculsDec = new CalculsDec();
-
        
         private void btn7_Click(object sender, EventArgs e)
         {
