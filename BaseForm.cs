@@ -18,11 +18,14 @@ namespace Calculatrice
         public BaseForm()
         {
             InitializeComponent();
-            btnComa.Enabled = false;  //Pour le moment je desactive ce bouton
+            btnComa.Enabled = true;  
+            
+            
         }
 
         Calculatrice.CalculsDec calculsDec = new CalculsDec();
 
+       
         private void btn7_Click(object sender, EventArgs e)
         {
             string actualNumber = ecranBox.Text;
@@ -105,36 +108,19 @@ namespace Calculatrice
         // typeDeCalcul = 2 = SUSTRACTION
         // typeDeCalcul = 3 = MULTIPLICATION
         // typeDeCalcul = 4 = DIVISION
-        // calculDecimal = true or false;
         //</summary>
+        
         public static int typeDeCalcul;  //Determine le type de calcul finale       
-        public static int valeur; //celle ci represente la première valeur
-        public double valeurDec; //Si la première valeur est decimale
-        public double valeurDec2;
+        public static double valeur; //celle ci represente la première valeur
+        public static bool IntroPressed = false;
        
 
-        public bool checkDec()  //Checker si c'est une valeur decimale
-        {
-            bool dec;
-            string texte = ecranBox.Text;
-            if (texte.Contains("."))
-            {
-                dec = true;
-            }
-            else
-            {
-                dec = false;
-            }
-            return dec;
-        }
-
-    
 
         #region somme
-        public int somme()
+        public double somme()
         {
-            int valeur = Convert.ToInt32(ecranBox.Text);           
             ecranBoxSup.Text = ecranBox.Text + " +";
+            double valeur = Convert.ToDouble(ecranBox.Text);                      
             ecranBox.Text = string.Empty;
             typeDeCalcul = 1;
             return valeur;
@@ -153,11 +139,11 @@ namespace Calculatrice
             
             if(noInput == false)
             {
-                int nombre = Convert.ToInt32(nombreStr);
+                double nombre = double.Parse(nombreStr);
                 string nombre2Str = ecranBoxSup.Text.Remove(ecranBoxSup.Text.Length - 2);
-                int nombre2 = Convert.ToInt32(nombre2Str);
+                double nombre2 = double.Parse(nombre2Str);
                 ecranBoxSup.Text = string.Empty;
-                int somme = nombre + nombre2;
+                double somme = nombre + nombre2;
                 string resultat = somme.ToString();
                 ecranBox.Text = resultat;
                 typeDeCalcul = 1;
@@ -166,9 +152,9 @@ namespace Calculatrice
 
    
 
-        public void sommeIntro(int value)
+        public void sommeIntro(double value)
         {
-            int somme = valeur + value;
+            double somme = valeur + value;
             string resultat = somme.ToString();
             ecranBoxSup.Text = string.Empty;
             ecranBox.Text = resultat;
@@ -178,9 +164,9 @@ namespace Calculatrice
         #endregion
 
         #region division
-        public int division()
+        public double division()
         {
-            int valeur = Convert.ToInt32(ecranBox.Text);
+            double valeur = Convert.ToDouble(ecranBox.Text);
             ecranBoxSup.Text = ecranBox.Text + " /";
             ecranBox.Text = string.Empty;
             typeDeCalcul = 4;
@@ -197,20 +183,20 @@ namespace Calculatrice
             }
             if(noInput == false)
             {
-                int nombre = Convert.ToInt32(nombreStr);
+                double nombre = Convert.ToDouble(nombreStr);
                 string nombre2Str = ecranBoxSup.Text.Remove(ecranBoxSup.Text.Length - 2);
-                int nombre2 = Convert.ToInt32(nombre2Str);
+                double nombre2 = Convert.ToDouble(nombre2Str);
                 ecranBoxSup.Text = string.Empty;
-                int division = nombre2 / nombre;
+                double division = nombre2 / nombre;
                 string resultat = division.ToString();
                 typeDeCalcul = 4;
                 ecranBox.Text = resultat;
             }          
         }
 
-        public void divisionIntro(int value)
+        public void divisionIntro(double value)
         {
-            int somme = valeur / value;
+            double somme = valeur / value;
             string resultat = somme.ToString();
             ecranBoxSup.Text = string.Empty;
             ecranBox.Text = resultat;
@@ -218,9 +204,9 @@ namespace Calculatrice
         #endregion
 
         #region multiplication
-        public int multiplication()
+        public double multiplication()
         {
-            int valeur = Convert.ToInt32(ecranBox.Text);
+            double valeur = Convert.ToDouble(ecranBox.Text);
             ecranBoxSup.Text = ecranBox.Text + " x";
             ecranBox.Text = string.Empty;
             typeDeCalcul = 3;
@@ -237,11 +223,11 @@ namespace Calculatrice
             }
             if (noInput == false)
             {
-                int nombre = Convert.ToInt32(nombreStr);
+                double nombre = Convert.ToDouble(nombreStr);
                 string nombre2Str = ecranBoxSup.Text.Remove(ecranBoxSup.Text.Length - 2);
-                int nombre2 = Convert.ToInt32(nombre2Str);
+                double nombre2 = Convert.ToDouble(nombre2Str);
                 ecranBoxSup.Text = string.Empty;
-                int multiplication = nombre * nombre2;
+                double multiplication = nombre * nombre2;
                 string resultat = multiplication.ToString();
                 typeDeCalcul = 3;
                 ecranBox.Text = resultat;
@@ -249,9 +235,9 @@ namespace Calculatrice
             
         }
 
-        public void multiplicationIntro(int value)
+        public void multiplicationIntro(double value)
         {
-            int somme = valeur * value;
+            double somme = valeur * value;
             string resultat = somme.ToString();
             ecranBoxSup.Text = string.Empty;
             ecranBox.Text = resultat;
@@ -259,9 +245,9 @@ namespace Calculatrice
         #endregion
 
         #region sustraction
-        public int sustraction()
+        public double sustraction()
         {
-            int valeur = Convert.ToInt32(ecranBox.Text);
+            double valeur = Convert.ToDouble(ecranBox.Text);
             ecranBoxSup.Text = ecranBox.Text + " -";
             ecranBox.Text = string.Empty;
             typeDeCalcul = 2;
@@ -278,11 +264,11 @@ namespace Calculatrice
             }
             if (noInput == false)
             {
-                int nombre = Convert.ToInt32(nombreStr);
+                double nombre = Convert.ToDouble(nombreStr);
                 string nombre2Str = ecranBoxSup.Text.Remove(ecranBoxSup.Text.Length - 2);
-                int nombre2 = Convert.ToInt32(nombre2Str);
+                double nombre2 = Convert.ToDouble(nombre2Str);
                 ecranBoxSup.Text = string.Empty;
-                int sustraction = nombre2 - nombre;
+                double sustraction = nombre2 - nombre;
                 string resultat = sustraction.ToString();
                 typeDeCalcul = 2;
                 ecranBox.Text = resultat;
@@ -290,9 +276,9 @@ namespace Calculatrice
             
         }
 
-        public void sustractionIntro(int value)
+        public void sustractionIntro(double value)
         {
-            int somme = valeur - value;
+            double somme = valeur - value;
             string resultat = somme.ToString();
             ecranBoxSup.Text = string.Empty;
             ecranBox.Text = resultat;
@@ -302,30 +288,23 @@ namespace Calculatrice
         #region boutons de calcul
         public void btnSomme_Click(object sender, EventArgs e)
         {
-            bool checkDecimal = checkDec();
 
-            if (ecranBoxSup.Text != string.Empty && checkDecimal == false )  
+            if (ecranBoxSup.Text != string.Empty /*&& checkDecimal == false*/ )  
             {
                 sommePlus();
             }
             
-            if( ecranBoxSup.Text != string.Empty && checkDecimal == true)
+            if( ecranBoxSup.Text != string.Empty /*&& checkDecimal == true*/)
             {
-                //Ajouter la methode
+                sommePlus();
             }
             
-            if (ecranBox.Text != string.Empty && checkDecimal == false)
+            if (ecranBox.Text != string.Empty /*&& checkDecimal == false*/)
             {
                 valeur = somme();
             }
 
-            if (ecranBox.Text != string.Empty && checkDecimal == true)
-            {
-                valeurDec = double.Parse(ecranBox.Text);
-                ecranBoxSup.Text = ecranBox.Text + " +";
-                ecranBox.Text = string.Empty;
-                typeDeCalcul = 1;
-            }
+            
 
 
         }
@@ -373,44 +352,44 @@ namespace Calculatrice
             {
                 ecranBox.Text = "0";
             }
-
-            bool checkDecimal = checkDec();
-            int valeur2 = 0;
             
-
-            if (checkDecimal == false)
+            if (ecranBox.Text.Length > 0 && ecranBoxSup.Text == string.Empty)
             {
-                valeur2 = Convert.ToInt32(ecranBox.Text);
+                ecranBox.Text = "";
             }
             else
             {
-                valeurDec2 = double.Parse(ecranBox.Text);
-                string resultat = calculsDec.sommeDec(valeurDec, valeurDec2);
+                double valeur2 = 0;
+
+                valeur2 = double.Parse(ecranBox.Text);
+
+                if (valeur > 0 && typeDeCalcul == 1) //Pour la somme
+                {
+                    sommeIntro(valeur2);
+                    ecranBoxSup.Text = string.Empty;
+                }
+                else if (valeur > 0 && typeDeCalcul == 3)  //Pour la multiplication
+                {
+                    multiplicationIntro(valeur2);
+                    ecranBoxSup.Text = string.Empty;
+                }
+                else if (valeur > 0 && typeDeCalcul == 4)  //Pour la division
+                {
+                    divisionIntro(valeur2);
+                    ecranBoxSup.Text = string.Empty;
+                }
+                else if (valeur > 0 && typeDeCalcul == 2)  //Pour la sustraction
+                {
+                    sustractionIntro(valeur2);
+                    ecranBoxSup.Text = string.Empty;
+                }
             }
-                       
             
-            if (valeur > 0 && typeDeCalcul == 1 && checkDecimal == false) //Pour la somme
-            {
-                sommeIntro(valeur2);
-                checkDecimal = checkDec();
-            }
-            else if(valeur > 0 && typeDeCalcul == 3 && checkDecimal == false)  //Pour la multiplication
-            {
-                multiplicationIntro(valeur2);
-            }
-            else if (valeur > 0 && typeDeCalcul == 4 && checkDecimal == false)  //Pour la division
-            {
-                divisionIntro(valeur2);
-            }
-            else if (valeur > 0 && typeDeCalcul == 2 && checkDecimal == false)  //Pour la sustraction
-            {
-                sustractionIntro(valeur2);
-            }
         }
 
         private void pictureBox3_Click(object sender, EventArgs e)  //Info extra
         {
-            MessageBox.Show("Calculatrice faite par Mimoun,\nélève de Terminale au lycée de l'arc 2021", "Infomation", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show("Calculatrice faite par Mimoun,\nélève de Terminale au lycée de l'arc 2021, \nPour parcoursup", "Infomation", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         #region Pour déplacer la fenetre
@@ -430,6 +409,9 @@ namespace Calculatrice
             SendMessage(this.Handle, 0x112, 0xf012, 0);
         }
 
+
         #endregion
+
+        
     }
 }
